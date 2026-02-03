@@ -190,3 +190,5 @@ The project provides a scalable foundation for future educational and wellness-f
 ---
 
 ⭐ *Built for awareness, balance, and sustainable growth.*
+
+~Build with ❤️ by Team Infera
