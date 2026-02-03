@@ -1,201 +1,192 @@
-**Ikigai-Based Mental Health & Productivity Correlator for Peoples**
-
-*Problem:*
-Students’ mental health issues often go unnoticed until they reach critical stages such as burnout, anxiety, or academic failure. Existing solutions are either reactive, medicalized, or disconnected from students’ daily routines and productivity patterns.
-
-*Solution:*
-This project proposes a web-based system that uses data science and machine learning to analyze students’ daily habits—including sleep patterns, study hours, screen time, physical activity, and self-reported mood—to predict stress levels and productivity.
-
-*🎯 Objectives*
-1.. Identify early stress and burnout patterns in students
-2.. Encourage balanced routines using behavioral data
-3.. Translate the Ikigai philosophy into measurable indicators
-4.. Provide explainable, ethical, and preventive insights
-
-By integrating the Ikigai framework (What you love, What you are good at, What the world needs, and What you can be paid for), the system visualizes balance between mental well-being and academic effort. The platform provides early stress indicators and personalized suggestions to help students maintain a healthy, sustainable routine before serious mental health issues occur.
-Disclaimer: 
-This system is not a medical diagnostic tool. It is intended for awareness, self-reflection, and preventive well-being support.
-
-🛠️ *Technology Stack*
-Frontend: React, Tailwind CSS
-Backend: Flask (Python)
-Machine Learning: Pandas, Scikit-learn
-Data: Synthetic CSV dataset
-Visualization: Chart.js / Recharts
-
-🚀 *Future Scope*
-Real-time habit tracking
-Personalized long-term recommendations
-Integration with wearable health data
-College-wide anonymous stress analytics
-
-👤 *Target Users*
-College and university students (18–25 years)
-Students facing academic pressure and screen overuse
-
-*flowchart:*
-
-![alt text]({72E593AD-6016-424C-8CD9-CB48B7489372}.png)
-
-
-Student → Web Frontend → Flask Backend → ML Model → Dashboard
-“The student enters daily habit data through the React frontend.
-The frontend sends this data as JSON to a Flask backend, which calls a machine learning model trained on CSV data to predict stress levels.
-The backend also computes productivity and Ikigai scores and returns insights and suggestions back to the frontend, where they are visualized on a dashboard.”
+# 🌸 Ikigai  
+### *Mental Health & Productivity Companion for Students*
 
-*explain:*
-1..Ikigai is traditionally philosophical.
-In our project, we operationalize Ikigai using behavioral data to make it measurable and actionable for students.
-2..Mental health is complex and subjective.
-Our system does not diagnose conditions.
-It identifies early behavioral patterns associated with stress and imbalance, enabling preventive awareness and healthier routines.
+Ikigai is a **web-based, preventive well-being platform** designed to help students understand the balance between their **mental health and productivity** using daily habit data and the Ikigai philosophy.
 
-*forulas:*
-This project uses a three-layer scoring system to analyze students’ daily behavioral data in a safe and explainable manner.
-The system is not a medical diagnostic tool and is intended only for awareness and preventive well-being insights.
+Rather than reacting after burnout or academic failure, this system focuses on **early awareness, self-reflection, and sustainable routines** — in an ethical, explainable, and non-medical way.
 
-🧮 Scoring Methodology (Explainable & Ethical)
-This project uses a three-layer scoring system to ensure safety, transparency, and interpretability.
+---
 
-**🔹 Layer 1: Normalization (0–100 Scale)**
-Raw user inputs are converted into normalized scores so that different units (hours, minutes, ratings) can be compared fairly.
+## 🚨 Problem Statement
 
-🛌 Sleep Score
-If 7–8 hours → 100
-If 6–7 or 8–9 hours → 80
-If 5–6 or 9–10 hours → 60
-Else → 30
+Students’ mental health challenges often remain unnoticed until they escalate into:
+- Burnout  
+- Chronic stress  
+- Anxiety  
+- Academic decline  
 
-📚 Study Score
-If 4–6 hours → 90
-If 2–4 or 6–8 hours → 75
-If <2 or >8 hours → 50
+Most existing solutions are:
+- Reactive instead of preventive  
+- Medicalized rather than student-friendly  
+- Disconnected from everyday routines  
 
-📱 Screen Time Score (Inverted)
-If ≤2 hours → 90
-If 2–4 hours → 75
-If 4–6 hours → 50
-If >6 hours → 30
+There is a need for a **simple, habit-based awareness system** that fits naturally into a student’s daily life.
 
-🏃 Physical Activity Score
-If ≥30 minutes → 90
-If 15–30 minutes → 70
-If <15 minutes → 40
+---
 
-😌 Mood Score
-MoodScore = (Mood / 5) × 100
+## 💡 Proposed Solution
 
-**🔹 Layer 2: Weighted Scoring**
-Different behavioral factors affect mental health differently. Weighted scoring is used based on common psychological patterns.
+Ikigai analyzes **daily behavioral inputs** such as:
 
-🧠 Stress Risk Score
-StressScore =
-0.30 × SleepScore +
-0.25 × MoodScore +
-0.20 × ScreenScore +
-0.15 × StudyScore +
-0.10 × ActivityScore
+- 🛌 Sleep duration  
+- 📚 Study hours  
+- 📱 Screen time  
+- 🏃 Physical activity  
+- 😌 Self-reported mood  
 
-Stress Level Classification
-Stress Score	Level
-≥75	            Low
-50–74	        Medium
-<50	            High
+Using **data science and machine learning**, the system:
+- Estimates **stress risk**
+- Calculates **productivity**
+- Visualizes **Ikigai balance**
+- Provides **personalized improvement suggestions**
 
-📊 Productivity Score
-ProductivityScore =
-0.40 × StudyScore +
-0.30 × SleepScore +
-0.20 × ActivityScore +
-0.10 × ScreenScore
+⚠️ *The system is not a medical diagnostic tool.*
 
-🌸 Ikigai-Based Balance Calculation
-The Ikigai framework is operationalized using measurable behavioral indicators.
+---
 
-Ikigai Pillar Scores
-Love    = (MoodScore + ActivityScore) / 2
-GoodAt  = StudyScore
-Need    = (SleepScore + (100 − StressScore)) / 2
-Value   = ProductivityScore
+## 🎯 Objectives
 
-🌟 Final Ikigai Balance Score
-IkigaiScore = (Love + GoodAt + Need + Value) / 4
+- Identify early signs of stress and burnout  
+- Encourage healthier and more balanced routines  
+- Translate Ikigai philosophy into measurable indicators  
+- Ensure transparency, explainability, and ethical design  
 
-**🔹 Layer 3: Machine Learning with Safety Overrides**
-A machine learning model (Logistic Regression / Decision Tree) is used only as a supporting tool to identify stress risk patterns.
+---
 
-Safety Rules
-If sleep < 4 hours OR mood ≤ 2 → Stress ≥ Medium
-If sleep < 3 hours AND screen time > 6 hours → Stress = High
+## 🧠 Ikigai in This Project
 
-These rules ensure the system never underestimates potential risk
+Ikigai traditionally represents balance between four aspects of life.  
+In this system, they are mapped to measurable behaviors:
 
+| Ikigai Pillar | Interpretation in System |
+|--------------|--------------------------|
+| ❤️ What you love | Mood & physical activity |
+| 🎓 What you are good at | Study consistency |
+| 🌍 What you need | Sleep quality & low stress |
+| 💼 What gives value | Productivity score |
 
-**EXPLAINATION**
+This allows students to understand **why** their routine feels imbalanced — not just *how stressed* they are.
 
-🟢 Opening 
+---
 
-Hello everyone.
-Today I’m presenting my project called Ikigai-Based Mental Health & Productivity Correlator for Students.
+## ⚙️ System Architecture
 
-The core problem we address is that students’ mental health issues often remain unnoticed until they turn into burnout or serious stress, especially during exams. Most existing solutions are reactive or medical in nature, whereas students need an early, preventive awareness system.
 
-🟢 What the System Does 
+### Flow Explanation
+1. Student enters daily habit data through the web interface  
+2. Frontend sends data as JSON to the Flask backend  
+3. Backend:
+   - Normalizes inputs
+   - Calculates stress, productivity, and Ikigai scores
+   - Applies ML model with safety rules  
+4. Results and insights are visualized on the dashboard  
 
-my system is a web-based application that analyzes students’ daily habits such as sleep hours, study time, screen usage, physical activity, and mood.
+---
 
-Using data science and machine learning, it predicts stress risk, calculates productivity, and visualizes Ikigai balance, which represents harmony between well-being and effort.
+## 📊 Scoring Methodology (Explainable & Safe)
 
-🟢 Live Input Explanation 
+### 🔹 Layer 1: Normalization (0–100 Scale)
 
-Here on the screen, a student enters their daily routine data — for example, how many hours they slept, studied, how much screen time they had, whether they exercised, and their current mood.
+Different inputs (hours, minutes, ratings) are converted into a common scale to ensure fairness and interpretability.
 
-These inputs are intentionally simple so that students can use the system daily without effort.
+- Optimal sleep → higher score  
+- Excessive screen time → lower score  
+- Better mood → higher score  
 
-🟢 Behind-the-Scenes Logic 
+---
 
-Internally, the system works in three layers.
+### 🔹 Layer 2: Weighted Scoring
 
-First, raw inputs are normalized into a 0–100 scale using explainable, research-informed ranges — for example, optimal sleep scores higher than very low or excessive sleep.
+Not all habits affect mental health equally.
 
-Second, we apply weighted scoring, where factors like sleep and mood have more influence than screen time. This produces a stress risk score and a productivity score.
+- **Stress Score** emphasizes sleep and mood  
+- **Productivity Score** emphasizes study and rest  
+- **Ikigai Score** represents overall balance  
 
-Third, a machine learning model supports the system by identifying stress patterns, but the final output always passes through rule-based safety checks to avoid underestimating risk.
+Scores are calculated using transparent, rule-based formulas.
 
-🟢 Ikigai Integration 
+---
 
-What makes our solution unique is the integration of the Ikigai framework.
+### 🔹 Layer 3: Machine Learning with Safety Rules
 
-We translate Ikigai’s four pillars — what you love, what you are good at, what the world needs, and what you can be paid for — into measurable behavioral indicators.
+A machine learning model (Logistic Regression / Decision Tree) supports pattern detection.
 
-This allows students to see not just how stressed they are, but why their routine may be imbalanced.
+**Safety overrides ensure risk is never underestimated**, for example:
+- Extremely low sleep or mood always increases stress level  
 
-🟢 Output & Insights 
+This guarantees ethical and responsible output.
 
-Based on the analysis, the dashboard displays the student’s stress risk level, productivity score, and overall Ikigai balance.
+---
 
-The system also provides personalized suggestions, such as improving sleep consistency, reducing screen time, or adding physical activity, to help restore balance.
+## 🖥️ Key Features
 
-🟢 Ethical Note 
+- Simple daily habit input  
+- Stress risk classification (Low / Medium / High)  
+- Productivity scoring  
+- Ikigai balance visualization  
+- Personalized routine suggestions  
+- Fully explainable, non-diagnostic design  
 
-It’s important to note that this system does not diagnose mental health conditions.
+---
 
-It is designed purely for awareness, self-reflection, and early prevention, and does not replace professional medical advice.
+## 🛠️ Technology Stack
 
-🟢 Closing 
+**Frontend**
+- React  
+- Tailwind CSS  
 
-In conclusion, this project demonstrates how responsible data science and human-centered design can be used to support student well-being proactively.
+**Backend**
+- Flask (Python)  
 
-The solution is scalable, ethical, and can be extended for colleges, learning platforms, or wellness programs in the future.
+**Machine Learning**
+- Pandas  
+- Scikit-learn  
 
-Thank you.
+**Data**
+- Synthetic CSV dataset  
 
-**🏁 Conclusion**
+**Visualization**
+- Chart.js / Recharts  
 
-The Ikigai-Based Mental Health & Productivity Correlator for Students presents a preventive and ethically responsible approach to student well-being by integrating behavioral data analysis with the Ikigai framework. Instead of attempting medical diagnosis, the system focuses on identifying early risk patterns associated with stress, imbalance, and burnout in students’ daily routines.
+---
 
-By transforming routine behavioral inputs—such as sleep patterns, study hours, screen time, physical activity, and self-reported mood—into explainable scores, the platform provides students with meaningful insights into their mental and productivity balance. The layered scoring methodology ensures transparency, while the combination of rule-based logic and machine learning enables both adaptability and safety.
+## 👤 Target Users
 
-Most importantly, the inclusion of the Ikigai framework encourages students to view productivity and mental health not as opposing forces, but as interconnected dimensions of a balanced life. This approach promotes self-awareness, sustainable habits, and long-term well-being rather than short-term performance optimization.
+- College and university students (18–25 years)  
+- Students facing academic pressure or high screen usage  
 
-Overall, this project demonstrates how responsible data science and human-centered design can be applied to mental health–adjacent problems, offering a scalable foundation for future educational and wellness platforms aimed at proactive student support.
+---
+
+## 🚀 Future Scope
+
+- Real-time habit tracking  
+- Long-term personalized recommendations  
+- Integration with wearable health data  
+- Anonymous, college-level stress analytics  
+
+---
+
+## ⚖️ Ethical Disclaimer
+
+This application **does not diagnose mental health conditions**.
+
+It is intended only for:
+- Awareness  
+- Self-reflection  
+- Preventive well-being support  
+
+For medical or psychological concerns, professional guidance should be sought.
+
+---
+
+## 🏁 Conclusion
+
+Ikigai demonstrates how **responsible data science and human-centered design** can support student well-being proactively.
+
+By combining daily habit analysis with the Ikigai framework, the platform encourages students to view **productivity and mental health as interconnected**, not conflicting goals.
+
+The project provides a scalable foundation for future educational and wellness-focused platforms.
+
+---
+
+⭐ *Built for awareness, balance, and sustainable growth.*
