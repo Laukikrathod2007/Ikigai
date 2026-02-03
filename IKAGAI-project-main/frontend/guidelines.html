@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Personalized Guidelines | Ikigai</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #f0fdf4, #eef2ff);
+      min-height: 100vh;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      background: white;
+      padding: 35px;
+      border-radius: 18px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    }
+
+    h1 {
+      text-align: center;
+      color: #4f46e5;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .section {
+      margin-top: 30px;
+    }
+
+    .card {
+      background: #eef2ff;
+      padding: 18px;
+      border-radius: 14px;
+      margin-top: 12px;
+      line-height: 1.7;
+    }
+
+    ul {
+      margin-top: 10px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .btn {
+      margin-top: 30px;
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #16a34a, #4f46e5);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .note {
+      margin-top: 25px;
+      font-size: 13px;
+      color: #666;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>🌿 Your Ikigai Guidelines</h1>
+  <p class="subtitle">Personalized actions based on your latest analysis</p>
+
+  <div id="summary"></div>
+
+  <div class="section">
+    <h3>🌙 Sleep & Recovery</h3>
+    <div class="card" id="sleepTips"></div>
+  </div>
+
+  <div class="section">
+    <h3>📱 Screen & Focus</h3>
+    <div class="card" id="screenTips"></div>
+  </div>
+
+  <div class="section">
+    <h3>🧠 Stress & Mindset</h3>
+    <div class="card" id="stressTips"></div>
+  </div>
+
+  <div class="section">
+    <h3>📈 Productivity & Growth</h3>
+    <div class="card" id="growthTips"></div>
+  </div>
+
+  <button class="btn" onclick="goHome()">⬅ Back to Dashboard</button>
+
+  <div class="note">
+    ⚠ This guidance is for awareness & improvement, not medical diagnosis.
+  </div>
+
+</div>
+
+<script>
+/* 🔒 PROTECT PAGE */
+const currentUser = JSON.parse(localStorage.getItem("ikigai_current_user"));
+if (!currentUser) {
+  window.location.href = "login.html";
+}
+
+/* 📦 LOAD LAST RESULT */
+const last = JSON.parse(localStorage.getItem("ikigai_last_result"));
+if (!last) {
+  alert("No analysis found. Please analyze first.");
+  window.location.href = "index.html";
+}
+
+const score = last.result.layer3_ikigai.ikigai_score;
+const stress = last.result.layer3_ml_support.final_stress_level;
+
+/* 🎯 SUMMARY */
+let status = "";
+let color = "";
+
+if (score < 40) {
+  status = "Burnout Zone";
+  color = "#ef4444";
+} else if (score < 70) {
+  status = "Needs Balance";
+  color = "#f59e0b";
+} else if (score < 85) {
+  status = "Healthy Balance";
+  color = "#22c55e";
+} else {
+  status = "Thriving State";
+  color = "#3b82f6";
+}
+
+document.getElementById("summary").innerHTML = `
+  <div class="badge" style="background:${color}; color:white;">
+    Ikigai Score: ${score} — ${status}
+  </div>
+`;
+
+/* 🌙 SLEEP */
+document.getElementById("sleepTips").innerHTML = `
+<ul>
+  <li>Sleep 7–8 hours consistently</li>
+  <li>Avoid screens 45 minutes before bed</li>
+  <li>Maintain fixed sleep & wake times</li>
+</ul>
+`;
+
+/* 📱 SCREEN */
+document.getElementById("screenTips").innerHTML = `
+<ul>
+  <li>Limit non-essential screen use</li>
+  <li>Follow 50–10 study rule</li>
+  <li>No phone during meals</li>
+</ul>
+`;
+
+/* 🧠 STRESS */
+document.getElementById("stressTips").innerHTML =
+stress === "High"
+? `<ul>
+    <li>Practice 4–7–8 breathing twice daily</li>
+    <li>Light walking or stretching</li>
+    <li>Reduce workload today</li>
+  </ul>`
+: `<ul>
+    <li>Daily journaling</li>
+    <li>Short mindfulness breaks</li>
+    <li>Maintain current routine</li>
+  </ul>`;
+
+/* 📈 GROWTH */
+document.getElementById("growthTips").innerHTML = `
+<ul>
+  <li>Set 3 realistic daily goals</li>
+  <li>Review progress every night</li>
+  <li>Celebrate small wins 🌱</li>
+</ul>
+`;
+
+function goHome() {
+  window.location.href = "home.html";
+}
+</script>
+<link rel="stylesheet" href="chatbot-widget.css">
+<script src="chatbot-widget.js"></script>
+
+</body>
+</html>
+

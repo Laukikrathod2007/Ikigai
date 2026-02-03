@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Welcome | Ikigai</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #f0fdf4, #eef2ff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      max-width: 750px;
+      width: 100%;
+      padding: 40px;
+      border-radius: 18px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      text-align: center;
+    }
+
+    .hero-img {
+      width: 160px;
+      margin: 0 auto 20px;
+    }
+
+    .hero-img img {
+      width: 100%;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .about {
+      text-align: left;
+      margin-bottom: 30px;
+      font-size: 15px;
+      color: #333;
+      line-height: 1.7;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .buttons button {
+      padding: 14px 26px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      min-width: 140px;
+    }
+
+    .login-btn {
+      background: #4f46e5;
+      color: white;
+    }
+
+    .login-btn:hover {
+      background: #4338ca;
+    }
+
+    .signup-btn {
+      background: #16a34a;
+      color: white;
+    }
+
+    .signup-btn:hover {
+      background: #15803d;
+    }
+
+    .note {
+      margin-top: 25px;
+      font-size: 13px;
+      color: #666;
+    }
+  </style>
+  <link rel="stylesheet" href="chatbot-widget.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- Image -->
+  <div class="hero-img">
+    <img
+      src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4"
+      alt="Ikigai concept"
+    />
+  </div>
+
+  <!-- Title -->
+  <h1>🌱 Welcome to Ikigai</h1>
+  <p class="subtitle">
+    Find balance between your mental well-being and productivity
+  </p>
+
+  <!-- About Ikigai -->
+  <div class="about">
+    <p>
+      <b>Ikigai</b> is a Japanese concept that means
+      <i>“a reason to wake up every morning.”</i>
+    </p>
+
+    <p>
+      As students, we often focus only on performance — exams, deadlines,
+      screen time — while ignoring sleep, mood, and mental balance.
+      Ikigai helps you understand <b>how your daily habits affect your stress,
+      productivity, and overall balance</b>.
+    </p>
+
+    <p>
+      This platform uses simple habit inputs, explainable scoring,
+      and ethical machine learning support to give you
+      <b>early awareness — not diagnosis</b>.
+    </p>
+  </div>
+
+  <!-- Buttons -->
+  <div class="buttons">
+    <button class="login-btn" onclick="goLogin()">Login</button>
+    <button class="signup-btn" onclick="goSignup()">Sign Up</button>
+  </div>
+
+  <div class="note">
+    ⚠ This system is for awareness and preventive well-being only.
+  </div>
+
+</div>
+
+<script>
+  function goLogin() {
+    window.location.href = "login.html";
+  }
+
+  function goSignup() {
+    window.location.href = "signup.html";
+  }
+</script>
+<script src="chatbot-widget.js"></script>
+
+</body>
+</html>

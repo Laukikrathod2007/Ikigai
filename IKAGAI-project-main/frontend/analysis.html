@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ikigai Mental Health Checker</title>
+
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f4f6fb;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 620px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      font-size: 15px;
+    }
+
+    button {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #4338ca;
+    }
+
+    .card {
+      background: #eef2ff;
+      padding: 14px;
+      border-radius: 12px;
+      margin-top: 14px;
+      line-height: 1.7;
+    }
+
+    h3 {
+      margin-top: 25px;
+      color: #333;
+    }
+
+    .guide-btn {
+      margin-top: 20px;
+      background: linear-gradient(135deg, #16a34a, #4f46e5);
+    }
+  </style>
+  <link rel="stylesheet" href="chatbot-widget.css">
+</head>
+
+<body>
+
+<div class="container">
+  <h2>🌱 Ikigai Mental Health Checker</h2>
+
+  <input id="sleep" type="number" placeholder="Sleep hours (e.g. 7)" />
+  <input id="study" type="number" placeholder="Study hours (e.g. 5)" />
+  <input id="screen" type="number" placeholder="Screen time (hrs)" />
+  <input id="activity" type="number" placeholder="Physical activity (mins)" />
+  <input id="mood" type="number" placeholder="Mood (1–5)" />
+
+  <button onclick="analyze()">Analyze</button>
+
+  <div id="result"></div>
+</div>
+
+<script>
+/* 🔒 AUTH CHECK */
+const currentUser = JSON.parse(localStorage.getItem("ikigai_current_user"));
+if (!currentUser) {
+  alert("Please login first");
+  window.location.href = "login.html";
+}
+
+/* 📊 MAIN ANALYSIS */
+async function analyze() {
+  const data = {
+    sleep: Number(document.getElementById("sleep").value),
+    study: Number(document.getElementById("study").value),
+    screen: Number(document.getElementById("screen").value),
+    activity: Number(document.getElementById("activity").value),
+    mood: Number(document.getElementById("mood").value)
+  };
+
+  if (Object.values(data).some(v => isNaN(v))) {
+    alert("Please fill all fields correctly");
+    return;
+  }
+
+  const response = await fetch("http://127.0.0.1:5000/ikigai", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  const res = await response.json();
+
+  /* ✅ SAVE FOR GUIDELINES PAGE */
+  localStorage.setItem(
+    "ikigai_last_result",
+    JSON.stringify({ input: data, result: res })
+  );
+
+  /* ✅ SAVE TO USER HISTORY */
+  saveIkigaiResult(
+    res.layer3_ikigai.ikigai_score,
+    res.layer3_ml_support.final_stress_level
+  );
+
+  /* ✅ DISPLAY RESULT */
+  document.getElementById("result").innerHTML = `
+    <h3>🔹 Daily Habit Scores</h3>
+    <div class="card">
+      🛌 Sleep: ${res.layer1_normalized.sleep_score}<br>
+      📚 Study: ${res.layer1_normalized.study_score}<br>
+      📱 Screen: ${res.layer1_normalized.screen_score}<br>
+      🏃 Activity: ${res.layer1_normalized.activity_score}<br>
+      😌 Mood: ${res.layer1_normalized.mood_score}
+    </div>
+
+    <h3>🧠 Stress & Productivity</h3>
+    <div class="card">
+      Stress Score: ${res.layer2_scores.stress_score}<br>
+      Stress Level: <b>${res.layer2_scores.rule_based_stress}</b><br>
+      Productivity: ${res.layer2_scores.productivity_score}
+    </div>
+
+    <h3>🌸 Ikigai Balance</h3>
+    <div class="card">
+      ⭐ <b>Ikigai Score: ${res.layer3_ikigai.ikigai_score}</b>
+    </div>
+
+    <button class="guide-btn" onclick="goToGuidelines()">
+      🌿 View Personalized Guidelines
+    </button>
+  `;
+}
+
+/* 💾 SAVE HISTORY */
+function saveIkigaiResult(score, stress) {
+  let users = JSON.parse(localStorage.getItem("ikigai_users")) || [];
+  const user = users.find(u => u.email === currentUser.email);
+  if (!user) return;
+
+  if (!user.ikigaiHistory) user.ikigaiHistory = [];
+
+  user.ikigaiHistory.push({
+    score,
+    stress,
+    date: new Date().toISOString().split("T")[0]
+  });
+
+  localStorage.setItem("ikigai_users", JSON.stringify(users));
+}
+
+/* 🔗 NAVIGATION */
+function goToGuidelines() {
+  window.location.href = "guidelines.html";
+}
+</script>
+<script src="chatbot-widget.js"></script>
+
+</body>
+</html>
+
+

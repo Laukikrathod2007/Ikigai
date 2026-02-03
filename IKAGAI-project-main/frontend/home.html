@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Home | Ikigai Dashboard</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f5f7fb;
+    }
+
+    .navbar {
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #4f46e5;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .profile {
+      background: #eef2ff;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    .hero {
+      margin: 30px auto;
+      width: 90%;
+      max-width: 1000px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .hero img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h2 {
+      margin-top: 30px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .card h3 {
+      margin: 0;
+      color: #4f46e5;
+    }
+
+    .score {
+      font-size: 32px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .cta {
+      margin: 40px 0;
+      background: linear-gradient(135deg, #4f46e5, #16a34a);
+      color: white;
+      padding: 30px;
+      border-radius: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .cta button {
+      background: white;
+      color: #4f46e5;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+  <link rel="stylesheet" href="chatbot-widget.css">
+</head>
+
+<body>
+
+<div class="navbar">
+  <div class="logo">🌱 Ikigai</div>
+  <div class="nav-right">
+    <div class="profile" id="userName"></div>
+    <button onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<div class="hero">
+  <img src="assets/homeimage.png" alt="Ikigai banner">
+</div>
+
+<div class="container">
+  <h2>📊 Your Ikigai Dashboard</h2>
+
+  <div class="dashboard">
+    <div class="card">
+      <h3>Latest Ikigai</h3>
+      <div class="score" id="latestScore">--</div>
+    </div>
+
+    <div class="card">
+      <h3>Average Score</h3>
+      <div class="score" id="avgScore">--</div>
+    </div>
+
+    <div class="card">
+      <h3>Best Score</h3>
+      <div class="score" id="bestScore">--</div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div>
+      <h3>Check Your Current Ikigai Score</h3>
+      <p>Analyze today’s habits and see your balance.</p>
+    </div>
+    <button onclick="goToAnalysis()">Analyze Now</button>
+  </div>
+</div>
+
+<script>
+  const currentUser = JSON.parse(localStorage.getItem("ikigai_current_user"));
+  if (!currentUser) window.location.href = "login.html";
+
+  const users = JSON.parse(localStorage.getItem("ikigai_users")) || [];
+  const user = users.find(u => u.email === currentUser.email);
+
+  document.getElementById("userName").innerText = "👤 " + user.name;
+
+  if (user.ikigaiHistory && user.ikigaiHistory.length > 0) {
+    const scores = user.ikigaiHistory.map(i => i.score);
+    document.getElementById("latestScore").innerText = scores.at(-1);
+    document.getElementById("avgScore").innerText =
+      Math.round(scores.reduce((a,b)=>a+b,0) / scores.length);
+    document.getElementById("bestScore").innerText = Math.max(...scores);
+  }
+
+  function goToAnalysis() {
+    window.location.href = "analysis.html";
+  }
+
+  function logout() {
+    localStorage.removeItem("ikigai_current_user");
+    window.location.href = "login.html";
+  }
+</script>
+<script src="chatbot-widget.js"></script>
+
+</body>
+</html>

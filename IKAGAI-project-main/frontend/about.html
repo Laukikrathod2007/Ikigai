@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About | Ikigai</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8fafc;
+      padding: 40px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+    h2 {
+      text-align: center;
+    }
+    ul {
+      margin-top: 20px;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 12px;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #4338ca;
+    }
+    .note {
+      font-size: 14px;
+      color: #555;
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>🌸 Welcome to Ikigai Mental Health Platform</h2>
+
+  <p>
+    Ikigai is a preventive mental well-being system designed for students.
+    It helps you understand stress, productivity, and balance using daily habits.
+  </p>
+
+  <ul>
+    <li>✔ Tracks sleep, study, screen time, activity, and mood</li>
+    <li>✔ Uses explainable scoring and ML support</li>
+    <li>✔ Focuses on awareness, not diagnosis</li>
+    <li>✔ Encourages sustainable routines</li>
+  </ul>
+
+  <div class="note">
+    ⚠ This is not a medical diagnostic tool.
+  </div>
+
+  <button onclick="continueApp()">Continue to App</button>
+</div>
+
+<script>
+function continueApp() {
+  // TEMP: direct to analysis page
+  window.location.href = "home.html";
+  // LATER you will change this to:
+  // window.location.href = "home.html";
+}
+</script>
+
+</body>
+</html>

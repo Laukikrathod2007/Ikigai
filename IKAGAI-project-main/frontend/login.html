@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | Ikigai</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #dcfce7, #e0e7ff);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      width: 350px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 12px;
+    }
+    button {
+      background: #16a34a;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+    button:hover {
+      background: #15803d;
+    }
+    .link {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+  </style>
+  <link rel="stylesheet" href="chatbot-widget.css">
+</head>
+
+<body>
+
+<div class="card">
+  <h2>🔐 Welcome Back</h2>
+
+  <input id="email" type="email" placeholder="Email" required>
+  <input id="password" type="password" placeholder="Password" required>
+
+  <button onclick="login()">Login</button>
+
+  <div class="link">
+    New here? <a href="signup.html">Create account</a>
+  </div>
+</div>
+
+<script>
+function login() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  if (!email || !password) {
+    alert("Please enter email and password");
+    return;
+  }
+
+  const users = JSON.parse(localStorage.getItem("ikigai_users")) || [];
+  const user = users.find(
+    u => u.email === email && u.password === password
+  );
+
+  if (!user) {
+    alert("Invalid credentials or account does not exist");
+    return;
+  }
+
+  // Save full user session
+  localStorage.setItem(
+    "ikigai_current_user",
+    JSON.stringify(user)
+  );
+
+  alert(`Welcome back, ${user.name}!`);
+  window.location.href = "about.html";
+}
+</script>
+<script src="chatbot-widget.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up | Ikigai</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #e0f2fe, #fdf2f8);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      width: 350px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 12px;
+    }
+    button {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    button:hover {
+      background: #4338ca;
+    }
+    .link {
+      text-align: center;
+      margin-top: 12px;
+    }
+  </style>
+  <link rel="stylesheet" href="chatbot-widget.css">
+</head>
+
+<body>
+
+<div class="card">
+  <h2>🌱 Create Account</h2>
+
+  <input id="name" type="text" placeholder="Full Name" required>
+  <input id="email" type="email" placeholder="Email" required>
+  <input id="password" type="password" placeholder="Password" required>
+
+  <button onclick="signup()">Sign Up</button>
+
+  <div class="link">
+    Already have an account? <a href="login.html">Login</a>
+  </div>
+</div>
+
+<script>
+function signup() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  if (!name || !email || !password) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  let users = JSON.parse(localStorage.getItem("ikigai_users")) || [];
+
+  const exists = users.find(u => u.email === email);
+  if (exists) {
+    alert("Account already exists. Please login.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  users.push({
+    name,
+    email,
+    password,
+    ikigaiHistory: []
+  });
+
+  localStorage.setItem("ikigai_users", JSON.stringify(users));
+
+  alert("Signup successful! Please login.");
+  window.location.href = "login.html";
+}
+</script>
+<script src="chatbot-widget.js"></script>
+
+</body>
+</html>
+
